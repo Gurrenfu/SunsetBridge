@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem.Interactions;
 
 namespace CMF
 {
     public class HandlerBasicControl : CharacterInput
     {
+        public UnityEvent FireEvent; 
         private BasicControls m_Controls;
         private float horMove;
         private float verMove;
@@ -33,6 +35,7 @@ namespace CMF
             m_Controls = new BasicControls();
             m_Controls.Basic.jump.performed += ctx => {isJumpPressed = true;};
             m_Controls.Basic.jump.canceled += ctx => {isJumpPressed = false;};
+            m_Controls.Basic.fire.performed += ctx => {FireEvent.Invoke();};
         }
 
         public void OnEnable()
